@@ -32,6 +32,14 @@ module "sqs" {
   max_receive_count           = each.value.max_receive_count
 }
 
+resource "aws_s3_object" "folders" {
+  for_each = var.s3_folders
+
+  bucket       = each.value.bucket
+  key          = "${each.value.key}/"
+  content_type = "application/x-directory"
+}
+
 module "ses" {
   source = "./modules/ses"
 

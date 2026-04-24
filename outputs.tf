@@ -1,3 +1,13 @@
+output "s3_folders" {
+  description = "Created S3 folder keys."
+  value = {
+    for key, obj in aws_s3_object.folders : key => {
+      bucket = obj.bucket
+      key    = obj.key
+    }
+  }
+}
+
 output "s3_buckets" {
   description = "Created S3 bucket names and ARNs."
   value = {
@@ -24,12 +34,12 @@ output "ses_identities" {
   description = "SES identity verification values to publish in DNS."
   value = {
     for key, identity in module.ses : key => {
-      domain                   = identity.domain
-      verification_token       = identity.verification_token
-      dkim_tokens              = identity.dkim_tokens
-      mail_from_mx_record      = identity.mail_from_mx_record
-      mail_from_txt_record     = identity.mail_from_txt_record
-      mail_from_domain         = identity.mail_from_domain
+      domain               = identity.domain
+      verification_token   = identity.verification_token
+      dkim_tokens          = identity.dkim_tokens
+      mail_from_mx_record  = identity.mail_from_mx_record
+      mail_from_txt_record = identity.mail_from_txt_record
+      mail_from_domain     = identity.mail_from_domain
     }
   }
 }

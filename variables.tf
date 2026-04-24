@@ -51,6 +51,15 @@ variable "sqs_queues" {
   default = {}
 }
 
+variable "s3_folders" {
+  description = "S3 folder prefixes to create in existing buckets, keyed by logical name."
+  type = map(object({
+    bucket = string
+    key    = string
+  }))
+  default = {}
+}
+
 variable "ses_identities" {
   description = "SES domain identities keyed by logical name."
   type = map(object({
